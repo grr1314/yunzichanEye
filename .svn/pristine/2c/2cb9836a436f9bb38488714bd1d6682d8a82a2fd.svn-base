@@ -1,0 +1,94 @@
+package com.zchk.yunzichan.utils.upLoad;
+
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.zchk.yunzichan.application.MyApplication;
+import com.zchk.yunzichan.db.DBUtils;
+import com.zchk.yunzichan.entity.model.check.CheckTemplateMessageItem;
+import com.zchk.yunzichan.entity.model.check.DBTableColRowInfo;
+import com.zchk.yunzichan.entity.model.check.DBTableRowInfo;
+import com.zchk.yunzichan.entity.model.repair.MaintenanceOrderProperty;
+import com.zchk.yunzichan.entity.model.upload.APPDataUploadMessage;
+import com.zchk.yunzichan.utils.GlobalDefine;
+import com.zchk.yunzichan.utils.JsonTools;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * @author SenseTech
+ */
+public class upLoadFile {
+    private static final String upload = GlobalDefine.CmdPath.cmdPath
+            + "APPDataUploadCmd";
+
+    private static final String TAG = "upLoadFile";
+
+    public static String upLoadAll(DBUtils dbu, Context context) {
+        APPDataUploadMessage message = new APPDataUploadMessage();
+
+        CheckTemplateMessageItem[] checkTemplateMessageItems = null;
+        //第一步：获取所有点检信息表名字
+        List<String> list = dbu.selectTablesName();
+        for (int i = 0; i < list.size(); i++) {
+            String[] str = list.get(i).split("_");
+            String s = str[1];
+            Log.e(TAG, s);
+            //第二步：通过查询模板表来获取每张表的字段名称
+            List<Map<String, Object>> tempCode = dbu.selectTemplateInfo(s);//拿到了字段
+            //第三步：补全字段名
+            Map<String, Object> item1 = new HashMap<>();
+            item1.put("nameEn", "LabelId");
+            tempCode.add(item1);
+            item1 = new HashMap<>();
+            item1.put("nameEn", "PicPath");
+            tempCode.add(item1);
+            item1 = new HashMap<>();
+            item1.put("nameEn", "RecordTime");
+            tempCode.add(item1);
+
+            List<String> listEn = new ArrayList<>();
+            for (int NameEnSize = 0; NameEnSize < tempCode.size(); NameEnSize++) {
+                listEn.add(tempCode.get(NameEnSize).get("nameEn").toString());
+            }
+            checkTemplateMessageItems = new CheckTemplateMessageItem[list.size()];
+
+            for (int n = 0; n < listEn.size(); n++) {
+                DBTableColRowInfo dbTableColRowInfo = new DBTableColRowInfo();
+                //第四步：查询点检信息表
+                List<Map<String, String>> ls = dbu.selectCheck(list.get(i), listEn.get(n));//但个字段的所有数据
+                for (int j = 0; j < ls.size(); j++) {
+                    DBTableRowInfo dbTableRowInfo = new DBTableRowInfo();
+                    dbTableRowInfo.colName = listEn.get(n);
+                    dbTableRowInfo.value = ls.get(j).get(listEn.get(n));
+                    dbTableColRowInfo.row = dbTableRowInfo;
+                }
+
+            }
+
+            CheckTemplateMessageItem checkTemplateMessageItem = new CheckTemplateMessageItem();
+            checkTemplateMessageItem.dbTableName = list.get(i);
+            checkTemplateMessageItem.items = checkTemplateMessageItems;
+        }
+
+        message.checkItems = checkTemplateMessageItems;
+        //以上是点检部分的完成
+        List<String> listRepair = dbu.selectRepair();
+        MaintenanceOrderProperty mops[] = new MaintenanceOrderProperty[listRepair
+                .size()];
+        MaintenanceOrderProperty mop;
+        for (int i = 0; i < list.size(); i++) {
+            mop = JSON.parseObject(list.get(i), MaintenanceOrderProperty.class);
+            mops[i] = mop;
+        }
+        message.orderItems=mops;
+        String str = JsonTools.StringToJson_UpLoad(message);
+        return str;
+    }
+}

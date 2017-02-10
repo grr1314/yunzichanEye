@@ -1,0 +1,118 @@
+package com.zchk.yunzichan.utils.upLoad;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
+import com.zchk.yunzichan.db.DBUtils;
+import com.zchk.yunzichan.entity.model.check.CheckTemplateMessageItem;
+import com.zchk.yunzichan.entity.model.check.DBTableColRowInfo;
+import com.zchk.yunzichan.entity.model.check.DBTableRowInfo;
+import com.zchk.yunzichan.entity.model.check.TemplateInfos;
+import com.zchk.yunzichan.entity.model.repair.MaintenanceOrderProperty;
+import com.zchk.yunzichan.entity.model.upload.APPDataUploadMessage;
+import com.zchk.yunzichan.net.HttpRequest;
+import com.zchk.yunzichan.utils.GlobalDefine;
+import com.zchk.yunzichan.utils.JsonTools;
+import com.zchk.yunzichan.utils.ToastUtil;
+
+
+/**
+ * �ϴ�ͬ������
+ * 
+ * @author SenseTech
+ * 
+ */
+public class upLoadFile {
+	private static final String upload = GlobalDefine.CmdPath.cmdPath
+			+ "APPDataUploadCmd";
+
+	private static final String TAG = "upLoadFile";
+
+	/**
+	 * �ϴ��û�����Ϣ
+	 */
+	public static void upLoadUserInfo() {
+
+	}
+
+	/**
+	 * �ϴ���������
+	 */
+	public static String upLoadAll(DBUtils dbu, Context c) {
+		Log.e(TAG, "iam coming");
+		List<String> list = new ArrayList<String>();
+		List<String> listCheck = new ArrayList<String>();
+		List<TemplateInfos> listTemps;
+		int sum;
+		// ��ѯ��������
+		list = dbu.selectRepair();
+
+		MaintenanceOrderProperty mops[] = new MaintenanceOrderProperty[list
+				.size()];
+		MaintenanceOrderProperty mop;
+		for (int i = 0; i < list.size(); i++) {
+			mop = JSON.parseObject(list.get(i), MaintenanceOrderProperty.class);
+			mops[i] = mop;
+		}
+
+		// ��ѯ�������
+		List<Map<String, Object>> ls = dbu.selectCheckElevator();
+		Map<String, Object> item;
+		for (int z = 0; z < 2; z++) {
+			item = new HashMap<String, Object>();
+			ls.add(item);
+		}
+
+		CheckTemplateMessageItem[] checks = new CheckTemplateMessageItem[1];
+		CheckTemplateMessageItem check = new CheckTemplateMessageItem();
+
+		DBTableColRowInfo[] dbtables = new DBTableColRowInfo[ls.size()];// ��ʾһ�������б�
+
+		DBTableColRowInfo dbtable;// ��ʾһ������
+		String[] eve = new String[] { "AlarmLamp", "AlarmFlag", "AlarmTemp",
+				"AlarmOrder", "DoorsWindows", "CheckUser", "Note" };
+
+		for (int i = 0; i < ls.size(); i++) {
+			dbtable = new DBTableColRowInfo();
+
+			DBTableRowInfo[] infos = new DBTableRowInfo[ls.get(i).size()];// ��ʾһ������
+
+			for (int j = 0; j < ls.get(i).size(); j++) {
+				DBTableRowInfo info = new DBTableRowInfo();
+				info.colName = eve[j];
+				info.value = (String) ls.get(i).get(eve[j]);
+				infos[j] = info;
+			}
+			dbtable.row = infos;
+			dbtables[i] = dbtable;
+		}
+		check = new CheckTemplateMessageItem();
+		check.items = dbtables;
+		check.dbTableName = "Check_SenseLIFT_RoleId";
+		checks[0] = check;
+
+		// �ж�����list�Ĵ�Сһ����sum�Ĵ�С
+		sum = list.size() > checks.length ? list.size() : checks.length;
+
+		APPDataUploadMessage message = new APPDataUploadMessage();
+		message.orderItems = mops;
+		message.checkItems = checks;
+		message.userName = "superUser";
+		message.sum = sum + "";
+		String str = JsonTools.StringToJson_UpLoad(message);
+		// ��װ���޵�����
+
+		String resp = HttpRequest.sendPost(upload.toString(), str);
+		ToastUtil.showToast(c, resp + "");
+		Log.e("Error", resp);
+		return resp;
+
+	}
+
+};

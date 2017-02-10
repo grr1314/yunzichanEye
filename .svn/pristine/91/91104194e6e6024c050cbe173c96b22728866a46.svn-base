@@ -1,0 +1,572 @@
+package com.zchk.yunzichan.ui.fragment.main;
+
+import java.io.Console;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Request;
+
+import com.zchk.yunzichan.R;
+import com.zchk.yunzichan.application.MyApplication;
+import com.zchk.yunzichan.db.DBUtils;
+import com.zchk.yunzichan.entity.bean.Device;
+import com.zchk.yunzichan.entity.bean.UserInfo;
+import com.zchk.yunzichan.entity.model.check.APPTempAndDevRelationItem;
+import com.zchk.yunzichan.entity.model.download.APPAssetItem;
+import com.zchk.yunzichan.entity.model.download.APPAssetTypeItem;
+import com.zchk.yunzichan.entity.model.download.APPDataUpdateMessage;
+import com.zchk.yunzichan.entity.model.download.APPTempleteItem;
+import com.zchk.yunzichan.entity.model.download.AppAccountItem;
+import com.zchk.yunzichan.minterface.DialogCallBack;
+import com.zchk.yunzichan.ui.activity.MipcaActivityCapture;
+import com.zchk.yunzichan.ui.activity.check.CheckQueryActivity;
+import com.zchk.yunzichan.ui.activity.diector.Diector_Activity;
+import com.zchk.yunzichan.ui.activity.leader.LeaderCheckChartsActivity;
+import com.zchk.yunzichan.ui.activity.main.HomeCheckIndexActivity;
+import com.zchk.yunzichan.ui.activity.main.HomeKnowledgeActivity;
+import com.zchk.yunzichan.ui.activity.main.HomeMaintenanceIndexActivity;
+import com.zchk.yunzichan.ui.activity.main.HomeSelfCheckActivity;
+import com.zchk.yunzichan.ui.activity.main.MainActivity;
+import com.zchk.yunzichan.ui.activity.query.CheckAndMaintenanceQueryActivity;
+import com.zchk.yunzichan.ui.activity.realtime.realTimeDataActivity;
+import com.zchk.yunzichan.ui.activity.repair.RepairIndexActivity;
+import com.zchk.yunzichan.ui.activity.tools.ToolsMainActivity;
+import com.zchk.yunzichan.ui.adapter.MainGridViewAdapter;
+import com.zchk.yunzichan.ui.fragment.base.BaseFragment;
+import com.zchk.yunzichan.ui.view.NoScrollGridView;
+import com.zchk.yunzichan.ui.view.PageIndicatorView;
+import com.zchk.yunzichan.ui.view.PageRecyclerView;
+import com.zchk.yunzichan.utils.Constant;
+import com.zchk.yunzichan.utils.DialogUtil;
+import com.zchk.yunzichan.utils.GlobalDefine;
+import com.zchk.yunzichan.utils.JsonTools;
+import com.zchk.yunzichan.utils.ToastUtil;
+import com.zchk.yunzichan.utils.downLoad.ConDataFactory;
+import com.zchk.yunzichan.utils.downLoad.DataFactory;
+import com.zchk.yunzichan.utils.downLoad.DeviceData;
+import com.zchk.yunzichan.utils.upLoad.upLoadFile;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class FirstPage_Fragment extends BaseFragment implements
+        OnItemClickListener {
+    private static final String TAG = "FirstPage_Fragment";
+
+    private static String url_download = GlobalDefine.CmdPath.cmdPath
+            + "APPDataUpdateSearchCmd";
+
+    private PageRecyclerView mRecyclerView = null;
+    private PageRecyclerView.PageAdapter myAdapter = null;
+
+    private NoScrollGridView gv_main;
+    String[] item_name;
+    MainGridViewAdapter adapter;
+
+    private ImageView iv_fristPage;
+
+    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    Map<String, Object> item;
+    private int[] imgs;
+
+    private MainActivity activity;
+
+    private APPDataUpdateMessage message;
+    private int screenheight;
+    private int screenwidth;
+    private ViewGroup.LayoutParams layoutParams;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        activity = (MainActivity) getActivity();
+        View view = inflater.inflate(R.layout.tab_fristpage, container, false);
+        initViews(view);
+        return view;
+    }
+
+    private void initViews(View view) {
+        // TODO Auto-generated method stub
+        item_name = getResources().getStringArray(R.array.main_item_name);
+        iv_fristPage = (ImageView) view.findViewById(R.id.iv_fristPage);
+        screenheight = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+        screenwidth = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+//        Log.i("csh", "宽: "+ screenwidth +"高"+ screenheight);
+        imgs = new int[]{R.mipmap.icon_1, R.mipmap.icon_2, R.mipmap.icon_3,
+                R.mipmap.icon_6, R.mipmap.icon_4, R.mipmap.icon11,
+                R.mipmap.icon_7, R.mipmap.icon_8, R.mipmap.icon_9,
+                R.mipmap.icon_5, R.mipmap.icon14, R.mipmap.icon13};
+        for (int i = 0; i < item_name.length; i++) {
+            item = new HashMap<>();
+            item.put("title", item_name[i]);
+            item.put("img", imgs[i]);
+            item.put("news", false);
+            list.add(item);
+        }
+        mRecyclerView = (PageRecyclerView) view
+                .findViewById(R.id.cusom_swipe_view);
+
+        mRecyclerView.setPageSize(3, 3);
+        mRecyclerView.setPageMargin(30);
+
+        mRecyclerView.setIndicator((PageIndicatorView) view
+                .findViewById(R.id.indicator));
+        mRecyclerView.setAdapter(myAdapter = mRecyclerView.new PageAdapter(
+                list, new PageRecyclerView.CallBack() {
+
+
+
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(
+                    ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(getActivity()).inflate(
+                        R.layout.item_main_gv, parent, false);
+                return new MyHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(
+                    RecyclerView.ViewHolder holder, int position) {
+                ((MyHolder) holder).tv.setText(list.get(position)
+                        .get("title").toString());
+
+//                layoutParams = ((MyHolder) holder).item_gv_img.getLayoutParams();
+//                layoutParams.height= screenwidth /6;
+//                layoutParams.width = screenwidth /6;
+                ((MyHolder) holder).item_gv_img
+                        .setImageResource((Integer) list.get(position)
+                                .get("img"));
+
+//                ((MyHolder) holder).item_gv_img.setLayoutParams(layoutParams);
+                if ((Boolean) list.get(position).get("news")) {
+                    ((MyHolder) holder).tv_itemNews.setText("!");
+                    ((MyHolder) holder).tv_itemNews
+                            .setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onItemClickListener(View view, int position) {
+                SwitchActivity(position);
+            }
+
+            @Override
+            public void onItemLongClickListener(View view, int position) {
+            }
+        }));
+
+    }
+
+    private void SwitchActivity(int pos) {
+        switch (pos) {
+            case 0: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), HomeCheckIndexActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+            }
+            break;
+            case 1: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), RepairIndexActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+
+            }
+            break;
+            case 2: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), HomeMaintenanceIndexActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+            }
+            break;
+            case 3: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),
+                        LeaderCheckChartsActivity.class);
+//                intent.setClass(getActivity(),CheckAndMaintenanceQueryActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+            }
+            break;
+            case 4: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), MipcaActivityCapture.class);
+                intent.putExtra("ClassNamecn", "HomesSpotCheckActivity");
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+            }
+            break;
+
+            case 5: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), realTimeDataActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case 6: {
+                if (activity.FragmentCheckNetwork() == Constant.NETWORKOFF) {
+                    ToastUtil.showToast(getActivity(), "当前网络不可用请检查你的网络");
+                    return;
+                }
+
+                MyApplication app = (MyApplication) getActivity().getApplication();
+                final DBUtils dbu = new DBUtils(app);
+                activity.FragmentShowDialog();
+                try {
+                    List<String> str = dbu.selectRepair();
+
+                    List<String> ls = dbu
+                            .selectRepairByStatus(Constant.HASNOTUPLOAD);
+                    ls = dbu.selectRepairByStatus(Constant.HASNOTUPLOAD);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Looper.prepare();
+                        String result = upLoadFile.upLoadAll(dbu, getActivity());
+                        Log.e("RESULT", result);
+                        handler.sendEmptyMessage(0);
+                    }
+                }).start();
+
+            }
+            break;
+            case 7: {
+                DialogUtil.showMyDialog(getActivity(), "是否更新数据",
+                        new DialogCallBack() {
+
+                            @Override
+                            public void sure() {
+                                DialogUtil.dismissMyDialog();
+                                updateData();
+                            }
+
+                            @Override
+                            public void cancel() {
+                                DialogUtil.dismissMyDialog();
+                            }
+                        });
+
+            }
+            break;
+            case 8: {
+                DialogUtil.showMyDialog(getActivity(), "是否清理数据",
+                        new DialogCallBack() {
+
+                            @Override
+                            public void sure() {
+                                DialogUtil.dismissMyDialog();
+                                cleanData();
+                            }
+
+                            @Override
+                            public void cancel() {
+                                DialogUtil.dismissMyDialog();
+                            }
+                        });
+            }
+            break;
+
+            case 9: {
+
+                MyApplication app = (MyApplication) getActivity().getApplication();
+                final DBUtils dbu = new DBUtils(app);
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), HomeKnowledgeActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right,
+                        R.anim.out_to_left);
+
+
+            }
+            break;
+
+//            case 10: {
+//                Intent intent = new Intent();
+//                intent.setClass(getActivity(), HomeSelfCheckActivity.class);
+//                startActivity(intent);
+//            }
+//            break;
+            case 10: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ToolsMainActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case 11: {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), Diector_Activity.class);
+                startActivity(intent);
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    protected void cleanData() {
+        // TODO Auto-generated method stub
+        activity.FragmentShowDialog();
+        MyApplication app = (MyApplication) getActivity().getApplication();
+        final DBUtils dbu = new DBUtils(app);
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                Looper.prepare();
+                try {
+                    Thread.sleep(3000);
+                    dbu.clearAllTableData();
+                    dbu.select();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                handler.sendEmptyMessage(1);
+            }
+        }).start();
+
+    }
+
+
+    protected void updateData() {
+        // TODO Auto-generated method stub
+        MyApplication app = (MyApplication) getActivity().getApplication();
+        final DBUtils dbu = new DBUtils(app);
+
+        APPDataUpdateMessage update = new APPDataUpdateMessage();
+        update.accountName = activity.getUser().getAccount();
+        String param = JsonTools.StringToJson_Update(update);
+
+        DataFactory factory = new ConDataFactory();
+
+        DeviceData device = factory.createData(DeviceData.class);
+        device.downLoad(url_download, param, new StringCallback() {
+
+            @Override
+            public void onAfter(int code) {
+                super.onAfter(code);
+                activity.FragmentDismissDialog();
+
+                try {
+                    dbu.select();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onBefore(Request request, int code) {
+                // TODO Auto-generated method stub
+                super.onBefore(request, code);
+                activity.FragmentShowDialog();
+
+            }
+
+            @Override
+            public void onResponse(String response, int code) {
+                // TODO Auto-generated method stub
+                Log.e("response", response);
+                message = (APPDataUpdateMessage) JsonTools.JsonToStruts(
+                        response, APPDataUpdateMessage.class);
+                if (message.resp.responseCommand.equals("Fail")) {
+                    ToastUtil.showToast(getActivity(), "查询失败");
+                    return;
+                }
+                AppAccountItem[] account = message.account;
+                APPAssetItem[] asset = message.assets;
+                APPTempleteItem[] templete = message.templete;
+                APPTempAndDevRelationItem[] relation = message.relation;
+                APPAssetTypeItem[] assetType = message.assetsType;
+
+                List<UserInfo> ls = new ArrayList<UserInfo>();
+                UserInfo userInfo = null;
+
+                for (int i = 0; i < account.length; i++) {
+                    userInfo = new UserInfo();
+                    userInfo.setAccount(account[i].account);
+                    userInfo.setPassword(account[i].pwd);
+                    userInfo.setCompany(account[i].company);
+                    userInfo.setCompanyId(account[i].companyID);
+                    userInfo.setRoleId(account[i].roleID);
+                    userInfo.setRoleName(account[i].roleNameCn);
+                    userInfo.setUserName(account[i].personName);
+                    ls.add(userInfo);
+                }
+                if (asset == null) {
+                    ToastUtil.showToast(getActivity(), "asset null");
+                    return;
+                }
+
+                Device device = null;
+                List<Device> lsDevice = new ArrayList<Device>();
+                for (int i = 0; i < asset.length; i++) {
+                    device = new Device();
+                    device.setId(asset[i].id);
+                    device.setNameCn(asset[i].nameCn);
+                    device.setTypeId(asset[i].typeId);
+                    device.setTypeName(asset[i].typeName);
+                    device.setLableCode(asset[i].lableCode);
+                    device.setCompany(asset[i].company);
+                    device.setCompanyId(asset[i].companyId);
+                    lsDevice.add(device);
+                }
+
+                List<Map<String, Object>> listTemp = new ArrayList<Map<String, Object>>();
+                Map<String, Object> item;
+
+                if (templete == null) {
+                    ToastUtil.showToast(getActivity(), "templete null");
+                    return;
+                }
+                for (int i = 0; i < templete.length; i++) {
+                    item = new HashMap<String, Object>();
+                    item.put("templeteCode", templete[i].templeteCode);
+                    item.put("nameCn", templete[i].nameCn);
+                    item.put("nameEn", templete[i].nameEn);
+                    item.put("dataType", templete[i].dataType);
+                    item.put("defaultValue", templete[i].defaultValue);
+                    item.put("allValue", templete[i].allValue);
+                    item.put("sign", 0);
+                    listTemp.add(item);
+                }
+
+                List<Map<String, Object>> listTempAndDev = new ArrayList<Map<String, Object>>();
+
+                for (int i = 0; i < relation.length; i++) {
+                    item = new HashMap<String, Object>();
+                    item.put("typeCode", relation[i].typeCode);
+                    item.put("templeteCode", relation[i].templeteCode);
+                    listTempAndDev.add(item);
+                }
+
+                List<Map<String, Object>> listAssetType = new ArrayList<Map<String, Object>>();
+                for (int i = 0; i < assetType.length; i++) {
+                    item = new HashMap<String, Object>();
+                    item.put("typeCode", assetType[i].typeCode);
+                    item.put("classifyNameCn", assetType[i].classifyNameCn);
+                    listAssetType.add(item);
+                }
+
+                try {
+
+                    dbu.clearAllTableData();
+                    dbu.insertUser(ls);
+                    dbu.insertDevice(lsDevice);
+                    dbu.insertTempcode(listTemp);
+                    dbu.inertTempAndDev(listTempAndDev);
+                    dbu.insertAssetType(listAssetType);
+                    ToastUtil.showToast(getContext(), "更新成功");
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int code) {
+                // TODO Auto-generated method stub
+                ToastUtil.showToast(getActivity(), "请检查网络设置");
+            }
+        });
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    activity.FragmentDismissDialog();
+                    ToastUtil.showToast(getActivity(), "上传成功");
+                    break;
+                case 1:
+                    activity.FragmentDismissDialog();
+                    ToastUtil.showToast(getActivity(), "清理成功");
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        ;
+    };
+
+    @Override
+    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        // TODO Auto-generated method stub
+        SwitchActivity(arg2);
+    }
+
+    /**
+     * ˢ��RecyclerView Item��ui
+     */
+    public void updateUI() {
+        Map<String, Object> item = list.get(6);
+        item.put("news", true);
+        item.put("title", item.get("title"));
+        item.put("img", item.get("img"));
+        list.set(6, item);
+        myAdapter.notifyItemRangeChanged(6, 1);
+    }
+
+    /**
+     * RecyclerView��ViewHolder
+     *
+     * @author SenseTech
+     */
+    public class MyHolder extends RecyclerView.ViewHolder {
+
+        public TextView tv = null;
+        public TextView tv_itemNews;
+        public ImageView item_gv_img;
+
+        public MyHolder(View itemView) {
+            super(itemView);
+            tv = (TextView) itemView.findViewById(R.id.item_gv_tv);
+            item_gv_img = (ImageView) itemView.findViewById(R.id.item_gv_img);
+//            tv_itemNews = (TextView) itemView.findViewById(R.id.tv_itemNews);
+        }
+    }
+
+    @Override
+    protected void onLoad() {
+        // TODO Auto-generated method stub
+
+    }
+
+}

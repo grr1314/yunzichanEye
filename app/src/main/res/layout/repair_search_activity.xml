@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:layout_marginTop="@dimen/common_margin_top"
+    android:orientation="vertical" >
+
+     <ProgressBar
+         android:layout_width="35dp"
+         android:layout_height="35dp"
+         android:id="@+id/pb_load"
+         android:layout_marginTop="30dp"
+         android:layout_gravity="center_vertical|center_horizontal"
+         android:visibility="gone"
+         />
+
+    <ListView
+        android:layout_margin="5dp"
+        android:visibility="visible"
+        android:id="@+id/lv_repair"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无数据"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center|center_vertical"
+        
+        />
+   
+
+</LinearLayout>

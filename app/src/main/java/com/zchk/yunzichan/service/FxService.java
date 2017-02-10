@@ -1,0 +1,261 @@
+package com.zchk.yunzichan.service;
+
+import com.alibaba.fastjson.JSON;
+import com.zchk.yunzichan.R;
+import com.zchk.yunzichan.entity.model.RequestAndResponse;
+import com.zchk.yunzichan.http.HttpRequest;
+import com.zchk.yunzichan.utils.GlobalDefine;
+
+import android.app.Service;
+import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.View.OnTouchListener;
+import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+public class FxService extends Service {
+
+	private String url = GlobalDefine.CmdPath.cmdPath + "HasOnLineCmd";
+
+	private Thread newThread;
+	private Handler handler;
+	private Runnable networkTask;
+
+	private String respJson;
+
+	private RequestAndResponse persons;
+
+	private float mTouchStartX;
+	private float mTouchStartY;
+	private float x;
+	private float y;
+	int state;
+	private float StartX;
+	private float StartY;
+
+	// ���帡�����ڲ���
+	LinearLayout mFloatLayout;
+	LayoutParams wmParams;
+	// ���������������ò��ֲ����Ķ���
+	WindowManager mWindowManager;
+	Button mFloatView;
+
+	private static final String TAG = "FxService";
+
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+		Log.i(TAG, "oncreat");
+		createFloatView();
+		handlerByID();
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void createFloatView() {
+		wmParams = new LayoutParams();
+		// ��ȡWindowManagerImpl.CompatModeWrapper
+		mWindowManager = (WindowManager) getApplication().getSystemService(
+				getApplication().WINDOW_SERVICE);
+		// ����window type
+		wmParams.type = LayoutParams.TYPE_PHONE;
+		// ����ͼƬ��ʽ��Ч��Ϊ����͸��
+		wmParams.format = PixelFormat.RGBA_8888;
+		// ���ø������ڲ��ɾ۽���ʵ�ֲ���������������������ɼ����ڵĲ�����
+		wmParams.flags =
+		// LayoutParams.FLAG_NOT_TOUCH_MODAL |
+		LayoutParams.FLAG_NOT_FOCUSABLE
+		// LayoutParams.FLAG_NOT_TOUCHABLE
+		;
+
+		// ������������ʾ��ͣ��λ��Ϊ����ö�
+		wmParams.gravity = Gravity.LEFT | Gravity.TOP;
+
+		// ����Ļ���Ͻ�Ϊԭ�㣬����x��y��ʼֵ
+		wmParams.x = 0;
+		wmParams.y = 0;
+
+		// �����������ڳ�������
+		wmParams.width = LayoutParams.WRAP_CONTENT;
+		wmParams.height = LayoutParams.WRAP_CONTENT;
+
+		LayoutInflater inflater = LayoutInflater.from(getApplication());
+		// ��ȡ����������ͼ���ڲ���
+		mFloatLayout = (LinearLayout) inflater.inflate(R.layout.float_layout,
+				null);
+		// ���mFloatLayout
+		mWindowManager.addView(mFloatLayout, wmParams);
+
+		// �������ڰ�ť
+		mFloatView = (Button) mFloatLayout.findViewById(R.id.float_id);
+
+		mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
+				.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+		Log.i(TAG, "Width/2--->" + mFloatView.getMeasuredWidth() / 2);
+		Log.i(TAG, "Height/2--->" + mFloatView.getMeasuredHeight() / 2);
+		// ���ü����������ڵĴ����ƶ�
+		mFloatView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+
+				// ��ȡ�����Ļ�����꣬������Ļ���Ͻ�Ϊԭ��
+				x = event.getRawX();
+				y = event.getRawY() - 25; // 25��ϵͳ״̬���ĸ߶�
+
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					state = MotionEvent.ACTION_DOWN;
+					StartX = x;
+					StartY = y;
+					// ��ȡ���View�����꣬���Դ�View���Ͻ�Ϊԭ��
+					mTouchStartX = event.getX();
+					mTouchStartY = event.getY();
+					Log.i("startP", "startX" + mTouchStartX + "====startY"
+							+ mTouchStartY);// ������Ϣ
+					break;
+				case MotionEvent.ACTION_MOVE:
+					state = MotionEvent.ACTION_MOVE;
+					updateViewPosition();
+					break;
+
+				case MotionEvent.ACTION_UP:
+					state = MotionEvent.ACTION_UP;
+
+					updateViewPosition();
+					showImg();
+					mTouchStartX = mTouchStartY = 0;
+					break;
+				}
+
+				return true;
+			}
+
+		});
+
+	}
+
+	public void showImg() {
+		// TODO Auto-generated method stub
+
+		if (Math.abs(x - StartX) < 1.5 && Math.abs(y - StartY) < 1.5) {
+			initThread();
+		}
+	}
+
+	private void updateViewPosition() {
+		// ���¸�������λ�ò���
+		wmParams.x = (int) (x - mTouchStartX);
+		wmParams.y = (int) (y - mTouchStartY);
+		mWindowManager.updateViewLayout(mFloatLayout, wmParams);
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if (mFloatLayout != null) {
+			mWindowManager.removeView(mFloatLayout);
+		}
+	}
+
+	public void initThread() {
+		newThread = new Thread(networkTask);
+		newThread.start();
+	}
+
+	public void handlerByID() {
+		handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				Bundle data = msg.getData();
+				String val = data.getString("json");
+				respJson = val;
+				Log.i("mylog", "������Ϊ-->" + val);
+				// UI����ĸ��µ���ز���
+				if (!val.equals("")) {
+					JsonAnalysis(respJson);
+					if (persons.responseCommand.equals("OK")) {
+						Toast.makeText(FxService.this, "��ǰ����һ������",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(FxService.this, "��Ǹ����ǰ���ڶ���״̬��",
+								Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					Toast.makeText(FxService.this, "��Ǹ����ǰ���ڶ���״̬��",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		};
+
+		networkTask = new Runnable() {
+
+			@Override
+			public void run() {
+				// ��������� http request.����������ز���
+				RequestAndResponse request = new RequestAndResponse();
+				request.requestCommand = "";
+				request.responseCommand = "";
+
+				String param = JsonTool(request);
+				System.out.println("param JsonStr:" + param);
+				String resp = HttpRequest.sendPost(url.toString(), param);
+
+				Message msg = new Message();
+				Bundle data = new Bundle();
+				data.putString("json", resp);
+				msg.setData(data);
+				handler.sendMessage(msg);
+			}
+		};
+	}
+
+	// ARRAY to JSON
+	private String JsonTool(RequestAndResponse request) {
+
+		String jsonString = JSON.toJSONString(request);
+
+		int lastIndexOf = jsonString.indexOf("null");
+		while (lastIndexOf != -1) {
+
+			if (lastIndexOf != -1) {
+				jsonString = jsonString.substring(0, lastIndexOf)
+						+ jsonString.substring(lastIndexOf + 4,
+								jsonString.length());
+			}
+			if (lastIndexOf == -1) {
+				break;
+			}
+			lastIndexOf = jsonString.indexOf("null");
+		}
+		System.out.println("���϶�������:" + jsonString);
+
+		return jsonString;
+	}
+
+	// JSON to ARRAY
+	private void JsonAnalysis(String jsonString) {
+		persons = JSON.parseObject(jsonString, RequestAndResponse.class);
+	}
+
+}

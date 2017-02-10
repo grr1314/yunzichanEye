@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.zchk.yunzichan.ui.view.RefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    <ListView
+        android:id="@+id/check_maintenance_listone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/line"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:visibility="gone" />
+    </com.zchk.yunzichan.ui.view.RefreshLayout>
+    <TextView
+        android:id="@+id/tv_Empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="没有数据"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/loding_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

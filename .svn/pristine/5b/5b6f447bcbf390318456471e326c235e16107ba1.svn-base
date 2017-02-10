@@ -1,0 +1,25 @@
+package com.zchk.yunzichan.entity.model.repair;
+
+/**
+ * ���޵��������ݵľ�����Ϣ
+ * 
+ * @author SenseTech
+ * 
+ */
+public class MaintenanceOrderProperty  {
+	
+	public int id; // ����id������
+	public String orderCode; // �������
+	public String reportPerson; // ������
+	public String telephone; // ���޵绰
+	public String receptionUser; // �Ӵ���
+	public String deviceNameCn; // �豸����
+	public String deviceId; // �豸id
+	public String building; // �豸��������
+	public String faultReport; // ���ϱ���
+	public String repairUser; // ָ��ά����
+	public String position; // ��װλ��
+	public String disposeTime; // ����ʱ��
+	public int status; // ״̬
+	public String userAccountName; // �û�������֤Ȩ��ʱ�õ�
+}

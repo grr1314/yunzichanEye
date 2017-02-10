@@ -1,0 +1,43 @@
+package com.zchk.yunzichan.ui.activity.leader;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import com.zchk.yunzichan.R;
+import com.zchk.yunzichan.ui.activity.BaseActivity;
+import com.zchk.yunzichan.ui.fragment.leader.DetailLeaderCheckFrgamet;
+
+/**
+ * Created by admin on 2017/1/12.
+ */
+public class CheckLeaderDetailActivity extends BaseActivity {
+
+    private String item;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.leader_charts_activity);
+        Intent intent=getIntent();
+        item= intent.getStringExtra("info");
+        if (savedInstanceState == null) {
+            Bundle args = new Bundle();
+            args.putString("info", item);
+            DetailLeaderCheckFrgamet fragment = new DetailLeaderCheckFrgamet();
+            fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().add(R.id.leader_chect_content, fragment).commit();
+        }
+        initViews();
+    }
+
+    private void initViews() {
+        initTopBar("点检详情", true, false, true);
+        initTopBarListener(null, null, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                finish();
+            }
+        });
+    }
+}

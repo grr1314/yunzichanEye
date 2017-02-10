@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/common_margin_top"
+    android:background="#ECF0F3" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_linear_addrepair"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/tv_Ordercode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_reportPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/tv_deviceNameCn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_deviceId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_building"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_faultReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_repairUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_disposeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#73848E"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <include layout="@layout/com_bottom" />
+
+</RelativeLayout>

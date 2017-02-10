@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/wanwei"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background" >
+
+                <LinearLayout
+                    android:id="@+id/zhongxin"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/background"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="95dp"
+                        android:layout_height="30dp"
+                        android:background="@mipmap/logocenter" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dianjian"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_above="@+id/zhongxin"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="38dp"
+                    android:background="@drawable/background"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:src="@mipmap/btn1" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:text="点检" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/chaxun"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:background="@drawable/background"
+                    android:layout_toLeftOf="@+id/zhongxin"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+                    
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:src="@mipmap/btn4" />
+
+                    <TextView
+                        android:id="@+id/textView0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:text="查询" />
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/gongdan"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38dp"
+                    android:background="@drawable/background"
+                    android:layout_toRightOf="@+id/zhongxin"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+                    
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:src="@mipmap/btn2" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:text="工单" />
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/weibao"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_below="@+id/zhongxin"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/background"
+                    android:layout_marginTop="38dp"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+                    
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:src="@mipmap/btn3" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:text="维保" />
+                    
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

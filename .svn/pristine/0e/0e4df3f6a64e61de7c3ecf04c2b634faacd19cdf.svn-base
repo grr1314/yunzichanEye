@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\procject\\yunzichanEye\\app\\build\\intermediates\\res\\merged\\release\\raw\\beep.ogg",
+        "source": "D:\\procject\\yunzichanEye\\app\\src\\main\\res\\raw\\beep.ogg"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\app\\build\\intermediates\\res\\merged\\release\\raw\\realm_properties",
+        "source": "D:\\procject\\yunzichanEye\\app\\src\\main\\res\\raw\\realm_properties"
+    }
+]

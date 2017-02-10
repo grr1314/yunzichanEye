@@ -1,0 +1,173 @@
+package com.zchk.yunzichan.db;
+
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.zchk.yunzichan.utils.ToastUtil;
+
+import java.util.ArrayList;
+
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+	private static final int VERSION = 1;
+	private static final String SWORD = "SWORD";
+
+	Context mContext;
+	// 三个不同参数的构造函数
+	// 带全部参数的构造函数，此构造函数必不可少
+	public DatabaseHelper(Context context, String name, CursorFactory factory,
+						  int version) {
+		super(context, name, factory, version);
+		mContext = context;
+	}
+
+	// 带两个参数的构造函数，调用的其实是带三个参数的构造函数
+	public DatabaseHelper(Context context, String name) {
+		this(context, name, VERSION);
+	}
+
+	// 带三个参数的构造函数，调用的是带所有参数的构造函数
+	public DatabaseHelper(Context context, String name, int version) {
+		this(context, name, null, version);
+	}
+	public DatabaseHelper(Context context, String name, int version, ArrayList<String> arr, ArrayList<String> arr1) {
+		super(context, name, null, version);
+		this.arr = arr;
+		this.arr1 = arr1;
+	}
+
+	// 创建数据库
+	public void onCreate(SQLiteDatabase db) {
+		Log.e(SWORD, "create a Database");
+//		Toast.makeText(mContext, "本地数据库配置成功",Toast.LENGTH_SHORT).show();
+		// 执行创建数据库操作
+		db.execSQL(DBManage.ASSETUSERINFO_CREATE);
+		db.execSQL(DBManage.EQUIPMENTMAINTAINRECORD_CREATE);
+//		db.execSQL(DBManage.CHECKSENSELIFTROLEID_CREATE);
+//		db.execSQL(DBManage.CHECKSENSEPOMROLEID_CREATE);
+//		db.execSQL(DBManage.CHECKSENSEELVROLEID_CREATE);
+//		db.execSQL(DBManage.CHECKSENSEFERROLEID_CREATE);
+		db.execSQL(DBManage.REPAIR_TABLE_CREATE);
+		db.execSQL(DBManage.DEVICE_BASE_INFO);
+		db.execSQL(DBManage.DEVISE_BASE);
+		db.execSQL(DBManage.ASSET);
+		db.execSQL(DBManage.TempAndDev);
+		db.execSQL(DBManage.APPAssetTypeItem);
+
+		db.execSQL(DBManage.check_sensexgd_roleid);
+		db.execSQL(DBManage.check_sensefpg_roleid);
+		db.execSQL(DBManage.check_sensefau_roleid);
+		db.execSQL(DBManage.check_senseiew_roleid);
+		db.execSQL(DBManage.check_sensesgp_roleid);
+		db.execSQL(DBManage.check_sensenlt_roleid);
+		db.execSQL(DBManage.check_vidicon_roleid);
+		//创建配置表，用于配置点检、维保、报修等表
+		db.execSQL(DBManage.tables);
+		String sql="insert into tables(type,tableName) values(0,'check_sensexgd_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_sensefpg_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_sensefau_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_senseiew_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_sensesgp_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_sensenlt_roleid')";
+		db.execSQL(sql);
+		sql="insert into tables(type,tableName) values(0,'check_vidicon_roleid')";
+		db.execSQL(sql);
+
+		String sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensexgd','异常备注','CheckPointa','4','无异常','无异常,需清理,有破损,需维修','0')";
+		db.execSQL(sql1);
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefpg','水箱水位','Waterlever','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefpg','稳压是否正常','presslevel','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefpg','电气设施','presslevel','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefpg','门窗是否关闭','windowsdoor','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefau','是否自动开启','autoopen','4','是','是,否','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefau','压力值','windowsdoor','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefau','是否运行正常','openwell','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensefau','温湿度是否正常','notem','4','正常','正常,温度异常,湿度异常','0')";
+		db.execSQL(sql1);
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('senseiew','温度是否正常','temiswell','4','正常','正常,超过七十度','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('senseiew','是否有杂物','cleanwell','4','无杂物','无杂物,有杂物,有金属物品','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('senseiew','室内温湿度','indoortem','4','正常','正常,高于75%RH,高于40度','0')";
+		db.execSQL(sql1);
+
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensesgp','是否自动启动','autoopenwell','4','自动','自动,手动','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensesgp','是否能正常启动','mantelopen','4','正常','正常,无法手动启动,无法电动启动','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensesgp','电气件是否完好','innerwell','4','完好','完好,有破损','0')";
+		db.execSQL(sql1);
+
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensenlt','室内有无杂物','iscleanwell','4','无杂物','无杂物,有杂物','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensenlt','电气设施是否完好','isdevicewelll','4','完好','完好,有破损','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensenlt','温度是否正常','ietemwell','4','正常(26度)','正常(26度),过高,过低','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('sensenlt','门窗是否关闭','doorclosewell','4','关闭','关闭,开启','0')";
+		db.execSQL(sql1);
+
+
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('vidicon','是否清理除尘','eyeisclean','4','已清理','已清理,未清理','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('vidicon','电源是否正常','eyepower','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+		sql1="insert into CheckTemplete(templetecode,nameCn,nameEn,dataType,defaultValue,allValue,sign) values('vidicon','视频接口是否正常','eyevideo','4','正常','正常,异常','0')";
+		db.execSQL(sql1);
+
+	}
+//	item.put("templateCode",
+//			cursor.getString(cursor.getColumnIndex("templeteCode")));
+//	item.put("nameEn",
+//			cursor.getString(cursor.getColumnIndex("nameEn")));
+//	name = cursor.getString(cursor.getColumnIndex("nameEn"));
+//	Log.e(TAG, "name:"+name);
+//	item.put("nameCn",
+//			cursor.getString(cursor.getColumnIndex("nameCn")));
+//	item.put("dataType",
+//			cursor.getString(cursor.getColumnIndex("dataType")));
+//	item.put("defaultValue",
+//			cursor.getString(cursor.getColumnIndex("defaultValue")));
+//	item.put("allValue",
+//			cursor.getString(cursor.getColumnIndex("allValue")));
+	private ArrayList<String> arr;
+	private ArrayList<String> arr1;
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// 创建成功，日志输出提示
+		Log.i("csh", "oldVersion: " + oldVersion + "newVersion" + newVersion);
+		if (arr != null) {
+			for (int i = 0; i < arr.size(); i++) {
+				db.execSQL(arr.get(i));
+			}
+		}
+		if (arr1 != null) {
+			for (int i = 0; i < arr1.size(); i++) {
+				db.execSQL(arr1.get(i));
+			}
+		}
+	}
+}

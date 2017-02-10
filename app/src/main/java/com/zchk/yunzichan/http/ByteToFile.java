@@ -1,0 +1,47 @@
+package com.zchk.yunzichan.http;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class ByteToFile {
+	public static  void getheadPicture1(byte[] data, String FileName)
+	  {
+	    System.out.println(">>>>>>>file size:"+data.length);
+	    
+	    ByteToFile.checkFolderExist(FileName);
+	    FileName+="123.jpg";
+	    File imageFile = new File(FileName);
+	    
+	    imageFile.mkdirs();
+	    //���������
+	    FileOutputStream outStream;
+	    try
+	    {
+	      outStream = new FileOutputStream(imageFile);
+	      outStream.write(data);
+	      outStream.close();
+	    }
+	    catch (FileNotFoundException e)
+	    {
+	      e.printStackTrace();
+	    }
+	    catch (IOException e)
+	    {
+	      e.printStackTrace();
+	    }
+	  }
+	
+	public static void checkFolderExist(String path)
+	  {
+	    File file = new File(path);
+	    if (!file.exists())
+	    {
+	      file.mkdirs();
+	    }
+	    
+	    return;
+	  }
+
+}

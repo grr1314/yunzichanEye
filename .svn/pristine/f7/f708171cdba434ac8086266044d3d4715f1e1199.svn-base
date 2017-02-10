@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\yunzichanEye\library\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="86be373fbb937524b93158974a71d81b89178aa1">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\yunzichanEye-library-unspecified_fffc596be966e16848ae738a1ab1259a0131bbdb.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.0.1_c49ee20a4e7a578baa85ba420014a3e1e6dc3d3c.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\libs\httpclient-4.3.6.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\httpclient-4.3.6_8de5b190d4eaaa5ead216d45c42b9d6851da674b.jar" />
+    </item>
+    <item
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e.jar" />
+    </item>
+    <item
+        jar="C:\Users\admin\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.6.1\86b122e640af09b0723e1fa44083c354ba6d9089\glide-3.6.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="86b122e640af09b0723e1fa44083c354ba6d9089">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\glide-3.6.1_abbba559301e74ba73ca62f77669034c6e3c1d1a.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-23.0.1_9c58fbb56c7d6933ede61ebd5acba23dac70202f.jar" />
+    </item>
+    <item
+        jar="D:\Android\SDK\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1_a04e62b9f239f778a4cb832be742e5b396d7816c.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\yunzichanEye\MPChartLib\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ce03d1b4e83231b71f7ecb7c57f049fa721833d9">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\yunzichanEye-MPChartLib-unspecified_41c599287dcf8792e9b9a3bee9cacf4f94fd8229.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_7a575f00e0d91daede82dfaa343b92773449e16b.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\libs\android-async-http-1.4.9.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.9_31a7054e7d601c681f887126b2514bc62275b772.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\libs\fastjson-1.1.33.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="43b49a6933e68564ddc291d941db1bd1bd4166fc">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\fastjson-1.1.33_f912130dfde6832bf5499e64a1c339e5de917e0b.jar" />
+    </item>
+    <item
+        jar="C:\Users\admin\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.3.1\19047bdb6a4fc00a44124f64ca98e88fc204e7e3\okhttp-3.3.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="19047bdb6a4fc00a44124f64ca98e88fc204e7e3">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\okhttp-3.3.1_fc88a4a1dcfa287adc77c0131bf7f0e633509f5d.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.isseiaoki\simplecropview\1.0.13\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a3cd589eb98308e8b0173feed3d717fe3ad04f21">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.isseiaoki-simplecropview-1.0.13_cb087332a72e1dc2648e5577efcbf69ffde73242.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_8c24f18ab502fd656bc1651825c6eefab8cc178b.jar" />
+    </item>
+    <item
+        jar="C:\Users\admin\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.8.0\5ea7af56cc7c567ed9856d99efb30740e9b17ff\okio-1.8.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\okio-1.8.0_9752e5d938ef575fd57431bb8423446747838c0f.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.0.1_caf32c1a3e9b5b849880492ecd64042a87121b80.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\libs\zxing.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e88c14e6e7daa0fa65172a62b54ee6a16ff4162d">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\zxing_f8538010021a15dfaf2ab6f6f4450ca3bdd88140.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\yunzichanEye\imageselector\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3b156bdb91cbdbc7f57b3d254c40784a03a2ad94">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\yunzichanEye-imageselector-unspecified_e939baade7132fcdc12606670646c8a7274a5a7c.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.commit451\PhotoView\1.2.4\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="890be6e1e56a883c9b407a11e067a61886dec123">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\com.commit451-PhotoView-1.2.4_3045c385c1b008c364b486d2c2d78c213b64e23f.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\yunzichanEye\okhttputils\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="44ddfe11b1dba3204fc7523b01c337c47b64b1af">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\yunzichanEye-okhttputils-unspecified_6778d19171688a7f8eb0c7ede83d180c951cbbcf.jar" />
+    </item>
+    <item
+        jar="D:\procject\yunzichanEye\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="D:\procject\yunzichanEye\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_48a2959e31829c849263d4ef62201befe1ebc016.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zchk.yunzichan"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <!-- 应用权限设置 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.zchk.yunzichan.application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/tubiao"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyTheme" >
+        <activity android:name="com.zchk.yunzichan.ui.activity.main.IndexActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.login.Login_Activity"
+            android:screenOrientation="portrait" />
+        <!-- 点检部分的所有activity -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.HomeCheckIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.check.CheckByIdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.check.CheckQueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.check.CheckInsertActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.check.CheckDeteilActivity"
+            android:screenOrientation="portrait" />
+        <!-- 扫一扫界面 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.MipcaActivityCapture"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- 维保部分所有的activity -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.HomeMaintenanceIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.maintenance.MaintenanceByIdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.maintenance.MaintenanceQueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.maintenance.MaintenanceInsertActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.file.RelevantFileContentActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 查询部分所有activity -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.query.CheckAndMaintenanceQueryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 报修 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.repair.RepairIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.repair.RepairSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.repair.AddRepairActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.repair.RepairDetailActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.repair.RepairSearchByIdActivity"
+            android:screenOrientation="portrait" />
+        <!-- 现场督察 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.HomesSpotCheckActivity"
+            android:screenOrientation="portrait" />
+        <!-- 知识库 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.HomeKnowledgeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.main.HomeSelfCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.file.RelevantFileActivity"
+            android:screenOrientation="portrait" />
+        <!-- 实时数据 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.realtime.realTimeDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.system.AllTempActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.system.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.route.routePlanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.ReasonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.system.TextSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 领导督查 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.leader.CheckLeaderDetailActivity"
+            android:screenOrientation="portrait" />
+        <!-- 工具 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.tools.ToolsMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.tools.LightActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.tools.ibook.Note_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.tools.ibook.SecondAtivity"
+            android:screenOrientation="portrait" />
+        <!-- 通讯录 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.diector.Diector_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.diector.DiectorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.leader.LeaderCheckChartsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.leader.ErrorRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.leader.DealActivity"
+            android:screenOrientation="portrait" />
+        <!-- 修改密码 -->
+        <activity
+            android:name="com.zchk.yunzichan.ui.activity.ModifyPassWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yongchun.library.view.ImageSelectorActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.yongchun.library.view.ImagePreviewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.yongchun.library.view.ImageCropActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+    </application>
+
+</manifest>

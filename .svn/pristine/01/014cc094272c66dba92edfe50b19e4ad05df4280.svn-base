@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\ic_placeholder.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xxhdpi\\ic_placeholder.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\ic_radio_button.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xxhdpi\\ic_radio_button.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\ic_arrow.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xxhdpi\\ic_arrow.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\ic_checked.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xxhdpi\\ic_checked.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\ic_check.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xxhdpi\\ic_check.png"
+    }
+]

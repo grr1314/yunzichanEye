@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/check_maintenance_devicename"
+        android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+	    android:layout_marginTop="10dp"
+	    android:paddingBottom="10dp"
+	    android:textSize="12sp"
+	    android:textColor="#000000"
+        android:text="设备名称" />
+
+    <TextView
+        android:id="@+id/check_maintenance_time"
+        android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center"
+	    android:layout_marginTop="10dp"
+	    android:paddingBottom="10dp"
+	    android:textSize="12sp"
+	    android:textColor="#000000"
+        android:text="时间" />
+
+    <TextView
+        android:id="@+id/check_maintenance_note"
+        android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+	    android:layout_marginTop="10dp"
+	    android:paddingBottom="10dp"
+	    android:textSize="12sp"
+	    android:textColor="#000000"
+        android:text="维保信息" />
+
+</LinearLayout>

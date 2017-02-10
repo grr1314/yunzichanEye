@@ -1,0 +1,12 @@
+package com.zchk.yunzichan.entity.model.check;
+
+
+/**
+ * ����ĳ���ϴ����ݵ�����
+ * 
+ * @author SenseTech list
+ */
+public class CheckTemplateMessageItem {
+	public String dbTableName;
+	public CheckTemplateMessageItem[] items;
+}

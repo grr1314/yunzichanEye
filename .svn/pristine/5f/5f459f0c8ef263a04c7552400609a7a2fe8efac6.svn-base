@@ -1,0 +1,5 @@
+package com.zchk.yunzichan.entity.model.check;
+
+public class DBTableColRowInfo {
+	public DBTableRowInfo[] row;
+}

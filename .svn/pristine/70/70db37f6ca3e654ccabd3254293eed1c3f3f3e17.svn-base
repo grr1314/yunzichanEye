@@ -1,0 +1,240 @@
+package com.zchk.yunzichan.ui.activity.maintenance;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Request;
+
+import com.zchk.yunzichan.R;
+import com.zchk.yunzichan.db.DBUtils;
+import com.zchk.yunzichan.entity.bean.MaintenanceSearchManager;
+import com.zchk.yunzichan.entity.model.maintenance.InfosQueryItems;
+import com.zchk.yunzichan.entity.model.maintenance.MaintainAdvancedQueryMessage;
+import com.zchk.yunzichan.entity.model.maintenance.MaintainrepairInfosQueryMessage;
+import com.zchk.yunzichan.http.HttpRequest;
+import com.zchk.yunzichan.ui.activity.BaseActivity;
+import com.zchk.yunzichan.ui.adapter.MaintenanceAdapter;
+import com.zchk.yunzichan.utils.Constant;
+import com.zchk.yunzichan.utils.GlobalDefine;
+import com.zchk.yunzichan.utils.JsonTools;
+import com.zchk.yunzichan.utils.ToastUtil;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.ListView;
+
+/**
+ * 维保查询界面
+ *
+ * @author SenseTech
+ *
+ */
+public class MaintenanceQueryActivity extends BaseActivity {
+
+    private static String TAG = "MaintenanceQueryActivity";
+
+    private static String url = GlobalDefine.CmdPath.cmdPath
+            + "MaintainrepairInfosSearchCmd";
+
+    private static String urlgaoji = GlobalDefine.CmdPath.cmdPath
+            + "MaintainAdvancedSearchCmd";// 高级查询
+
+    public Handler handler;
+    public Runnable networkgaojiTask;
+
+    private MaintenanceAdapter myAdapter; // 数据适配器
+    private List<MaintenanceSearchManager> data; // 数据实体
+
+    private MaintainrepairInfosQueryMessage persons;
+    private MaintainAdvancedQueryMessage personsgaoji;
+
+    public EditText check_start_time;// 找到布局中的开始时间
+    public EditText check_end_time; // 找到布局中的结束时间
+
+    private String[] DeviceIds;
+    private String[] Times;
+    private String[] repairInfo;
+
+    public String shuaxinJson;
+    public String JsonString;
+    private ListView maintenance_list;
+    private DBUtils dbu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.maintenance_query);
+        initView();
+        handler();
+        initTopBarListener(null, null, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                finish();
+            }
+        });
+        if (Constant.NETWORKOFF == checkMode()) {
+            initDataLoc();
+            return;
+        }
+        initData();
+    }
+
+    private void initDataLoc() {
+        // TODO Auto-generated method stub
+        dbu = new DBUtils(initApplication());
+        data = new ArrayList<MaintenanceSearchManager>();
+        Log.e(TAG, data.size() + "");
+        data = dbu.getMaintain();
+        myAdapter = new MaintenanceAdapter(MaintenanceQueryActivity.this, data);
+        maintenance_list.setAdapter(myAdapter);
+
+    }
+
+    private void initView() {
+        // TODO Auto-generated method stub
+        initTopBar("维保记录", true, false, true);
+        maintenance_list = (ListView) findViewById(R.id.maintenance_list);
+        maintenance_list.setSelector(R.color.transport);
+    }
+
+    private void initData() {
+        // TODO Auto-generated method stub
+		/* 网络操作相关的子线程 */
+
+        MaintainrepairInfosQueryMessage userMaintainrepairrequ = new MaintainrepairInfosQueryMessage();
+        userMaintainrepairrequ.items = new InfosQueryItems[1];
+        userMaintainrepairrequ.sum = "10";
+        userMaintainrepairrequ.userName = initApplication().userInfo
+                .getAccount();
+        String param = JsonTools
+                .StringToJson_Maintenance_Select(userMaintainrepairrequ);
+
+        http(url, 1, param, new StringCallback() {
+            @Override
+            public void onAfter(int code) {
+                // TODO Auto-generated method stub
+                super.onAfter(code);
+                dialogDismiss();
+            }
+
+            @Override
+            public void onBefore(Request request,int code) {
+                // TODO Auto-generated method stub
+                super.onBefore(request,code);
+                showDialog();
+            }
+
+            @Override
+            public void onResponse(String response,int code) {
+                // TODO Auto-generated method stub
+                Log.e(TAG, response);
+                persons = (MaintainrepairInfosQueryMessage) JsonTools
+                        .JsonToStruts(response,
+                                MaintainrepairInfosQueryMessage.class);
+                if (persons.responseCommand.equals("Fail")) {
+                    ToastUtil.showToast(getApplicationContext(), "查询失败");
+                    return;
+                }
+                putData();
+
+            }
+
+            @Override
+            public void onError(Call call, Exception e,int code) {
+                // TODO Auto-generated method stub
+                showErrorPage();
+            }
+        });
+
+    }
+
+    private void handler() {
+        // TODO Auto-generated method stub
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                dialogDismiss();
+                switch (msg.what) {
+                    case 1: {
+                        putData();
+                    }
+                    break;
+                    case 2: {
+
+                    }
+                    break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+    }
+
+    private void putData() {
+        if (persons.items == null) {
+            ToastUtil.showToast(getApplicationContext(), "未找到维修记录");
+            return;
+        }
+        DeviceIds = new String[persons.items.length];
+        Times = new String[persons.items.length];
+        repairInfo = new String[persons.items.length];
+
+        for (int i = 0; i < persons.items.length; i++) {
+
+            DeviceIds[i] = persons.items[i].deviceName;
+            Times[i] = persons.items[i].checkTime;
+            repairInfo[i] = persons.items[i].repairInfo;
+        }
+        getData();
+    }
+
+    private void getData() {
+        data = new ArrayList<MaintenanceSearchManager>();
+        for (int i = 0; i < DeviceIds.length; i++) {
+            data.add(new MaintenanceSearchManager(DeviceIds[i], Times[i],
+                    repairInfo[i]));
+        }
+        myAdapter = new MaintenanceAdapter(MaintenanceQueryActivity.this, data);
+        maintenance_list.setAdapter(myAdapter);
+    }
+
+    public void handlergaoji() {
+
+		/* 网络操作相关的子线程 */
+        networkgaojiTask = new Runnable() {
+
+            @Override
+            public void run() {
+                // 在这里进行 http request.网络请求相关操作
+                MaintainAdvancedQueryMessage userCheckrequ = new MaintainAdvancedQueryMessage();
+                userCheckrequ.startTime = check_start_time.getText().toString();
+                userCheckrequ.endTime = check_end_time.getText().toString();
+                userCheckrequ.items = new InfosQueryItems[1];
+                userCheckrequ.sum = "10";
+                userCheckrequ.userName = initApplication().userInfo
+                        .getAccount();
+
+                String param = JsonTools
+                        .StringToJson_Maintenance_ASelect(userCheckrequ);
+                System.out.println("param JsonStr:" + param);
+                String resp = HttpRequest.sendPost(urlgaoji.toString(), param);
+
+                Message msg = new Message();
+                Bundle data = new Bundle();
+                data.putString("json", resp);
+                msg.setData(data);
+            }
+        };
+    }
+}

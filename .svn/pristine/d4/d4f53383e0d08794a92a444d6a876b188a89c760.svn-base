@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\ic_back.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\bundles\\debug\\res\\mipmap-xhdpi-v4\\ic_back.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\ic_camera.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\bundles\\debug\\res\\mipmap-xhdpi-v4\\ic_camera.png"
+    }
+]

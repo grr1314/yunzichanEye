@@ -1,0 +1,81 @@
+package com.zchk.yunzichan.db;
+
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.zchk.yunzichan.utils.ToastUtil;
+
+import java.util.ArrayList;
+
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+	private static final int VERSION = 1;
+	private static final String SWORD = "SWORD";
+
+	Context mContext;
+	// 三个不同参数的构造函数
+	// 带全部参数的构造函数，此构造函数必不可少
+	public DatabaseHelper(Context context, String name, CursorFactory factory,
+						  int version) {
+		super(context, name, factory, version);
+		mContext = context;
+	}
+
+	// 带两个参数的构造函数，调用的其实是带三个参数的构造函数
+	public DatabaseHelper(Context context, String name) {
+		this(context, name, VERSION);
+	}
+
+	// 带三个参数的构造函数，调用的是带所有参数的构造函数
+	public DatabaseHelper(Context context, String name, int version) {
+		this(context, name, null, version);
+	}
+	public DatabaseHelper(Context context, String name, int version, ArrayList<String> arr, ArrayList<String> arr1) {
+		super(context, name, null, version);
+		this.arr = arr;
+		this.arr1 = arr1;
+	}
+
+	// 创建数据库
+	public void onCreate(SQLiteDatabase db) {
+		Log.e(SWORD, "create a Database");
+//		Toast.makeText(mContext, "本地数据库配置成功",Toast.LENGTH_SHORT).show();
+		// 执行创建数据库操作
+		db.execSQL(DBManage.ASSETUSERINFO_CREATE);
+		db.execSQL(DBManage.EQUIPMENTMAINTAINRECORD_CREATE);
+		db.execSQL(DBManage.CHECKSENSELIFTROLEID_CREATE);
+		db.execSQL(DBManage.CHECKSENSEPOMROLEID_CREATE);
+		db.execSQL(DBManage.CHECKSENSEELVROLEID_CREATE);
+		db.execSQL(DBManage.CHECKSENSEFERROLEID_CREATE);
+		db.execSQL(DBManage.REPAIR_TABLE_CREATE);
+		db.execSQL(DBManage.DEVICE_BASE_INFO);
+		db.execSQL(DBManage.DEVISE_BASE);
+		db.execSQL(DBManage.ASSET);
+		db.execSQL(DBManage.TempAndDev);
+		db.execSQL(DBManage.APPAssetTypeItem);
+	}
+
+	private ArrayList<String> arr;
+	private ArrayList<String> arr1;
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// 创建成功，日志输出提示
+		Log.i("csh", "oldVersion: " + oldVersion + "newVersion" + newVersion);
+		if (arr != null) {
+			for (int i = 0; i < arr.size(); i++) {
+				db.execSQL(arr.get(i));
+			}
+		}
+		if (arr1 != null) {
+			for (int i = 0; i < arr1.size(); i++) {
+				db.execSQL(arr1.get(i));
+			}
+		}
+	}
+}

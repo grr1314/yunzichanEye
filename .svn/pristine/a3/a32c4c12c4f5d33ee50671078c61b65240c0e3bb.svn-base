@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_linear_addrepair">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:src="@drawable/repair_img_tab"
+                android:id="@+id/iv_tab"
+                android:layout_width="6dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/item_repair_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_tab"
+                android:text="12314"
+                android:textColor="#73848E" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/repair_search_03"
+
+                />
+
+            <TextView
+                android:id="@+id/item_repair_reportPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#73848E" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/repair_phone_05" />
+
+            <TextView
+                android:id="@+id/item_repair_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#73848E" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

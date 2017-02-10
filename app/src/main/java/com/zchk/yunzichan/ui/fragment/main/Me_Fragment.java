@@ -1,0 +1,113 @@
+package com.zchk.yunzichan.ui.fragment.main;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import com.zchk.yunzichan.R;
+import com.zchk.yunzichan.location.share;
+import com.zchk.yunzichan.minterface.DialogCallBack;
+import com.zchk.yunzichan.ui.activity.ModifyPassWordActivity;
+import com.zchk.yunzichan.ui.activity.UserInfoActivity;
+import com.zchk.yunzichan.ui.activity.login.Login_Activity;
+import com.zchk.yunzichan.ui.activity.main.MainActivity;
+import com.zchk.yunzichan.utils.DialogUtil;
+
+public class Me_Fragment extends Fragment implements OnClickListener {
+	private static final int REQUEST_FOR_MODIFY =0 ;
+	private RelativeLayout rl_user;
+	private RelativeLayout rl_logout;
+
+	private MainActivity activity;
+	private RelativeLayout rl_modify;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.tab_me, container, false);
+		initViews(view);
+		initListeners();
+		return view;
+	}
+
+	private void initListeners() {
+		rl_user.setOnClickListener(this);
+		rl_logout.setOnClickListener(this);
+		rl_modify.setOnClickListener(this);
+	}
+
+	private void initViews(View view) {
+		activity = (MainActivity) getActivity();
+		rl_user = (RelativeLayout) view.findViewById(R.id.rl_user);
+		rl_logout = (RelativeLayout) view.findViewById(R.id.rl_logout);
+		rl_modify = (RelativeLayout) view.findViewById(R.id.rl_modify);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.rl_logout: {
+			// TODO Auto-generated method stub
+			DialogUtil.showMyDialog(getActivity(), "是否退出？",
+					new DialogCallBack() {
+						@Override
+						public void sure() {
+							share.logout(getActivity());
+							Intent intent = new Intent();
+							intent.setClass(getActivity(),
+									Login_Activity.class);
+							startActivity(intent);
+							getActivity().finish();
+						}
+
+						@Override
+						public void cancel() {
+							DialogUtil.dismissMyDialog();
+						}
+					});
+		}
+			break;
+		case R.id.rl_user: {
+			Intent intent=new Intent();
+			intent.setClass(getActivity(), UserInfoActivity.class);
+			startActivity(intent);
+		}
+			break;
+			case R.id.rl_modify: {//修改密码
+				Intent intent = new Intent(getActivity(),ModifyPassWordActivity.class);
+				// startActivity是一个普通的开启
+				//		startActivity(intent);
+				// 开启B的目的 是为了拿到B在关闭的时候返回的结果
+				startActivityForResult(intent, REQUEST_FOR_MODIFY);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override//判断从修改界面回传的结果，如果是修改成功界面跳转并关闭界面
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+			case 100:
+				share.logout(getActivity());
+				Intent intent = new Intent();
+				intent.setClass(getActivity(),
+						Login_Activity.class);
+				startActivity(intent);
+				getActivity().finish();
+				break;
+			case 1:
+
+				break;
+			default:
+				break;
+		}
+	}
+}

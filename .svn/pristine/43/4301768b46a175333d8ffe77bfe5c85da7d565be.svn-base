@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bgcolor">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/common_margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/check_top" />
+
+        <com.zchk.yunzichan.ui.view.NoScrollListView
+            android:id="@+id/lv_realTime_Data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="10dp"
+            android:layout_margin="10dp"
+            android:divider="#00000000"
+            />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="该功能正在开发中。。。。"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

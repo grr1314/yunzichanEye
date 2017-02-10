@@ -1,0 +1,38 @@
+<resources>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">E维管家</string>
+    <string name="patent">Copyright © 2016 中创华科 All Rights Reserved</string>
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+    <string name="weizhi">*****</string>
+    <string name="filecontent">特创电辅助加热模块，解决热泵低温下加热效率低与加热满的难题，用水时开启MAX增容功能，超大热水量多至305% 基于逆卡诺原理，在气温-5至5的寒冷冬季，热泵加热胸膛那个的平均节能效率仅为最</string>
+    <string name="company">中创华科</string>
+
+    <string-array name="main_item_name">
+        <item>设备巡检</item>
+        <item>设备报修</item>
+        <item>设备维修</item>
+        <item>领导督查</item>
+        <item>现场督查</item>
+        <item>实时数据</item>
+        <item>数据上传</item>
+        <item>数据更新</item>
+        <item>数据清理</item>
+        <item>知识库</item>
+        <item>工具箱</item>
+        <item>通讯录</item>
+    </string-array>
+    <string-array name="leader_check">
+        <item>电表</item>
+        <item>电梯机房</item>
+        <item>弱电</item>
+        <item>消防</item>
+    </string-array>
+    <string-array name="leader_check_temp">
+        <item>SensePOM</item>
+        <item>SenseLIFT</item>
+        <item>SenseELV</item>
+        <item>SenseFER</item>
+    </string-array>
+
+    <string name="realtimeTag">指标项</string>
+</resources>

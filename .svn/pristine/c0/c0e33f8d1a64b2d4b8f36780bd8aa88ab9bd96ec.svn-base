@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi-v4\\ic_camera.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xhdpi\\ic_camera.png"
+    },
+    {
+        "merged": "D:\\procject\\yunzichanEye\\imageselector\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi-v4\\ic_back.png",
+        "source": "D:\\procject\\yunzichanEye\\imageselector\\src\\main\\res\\mipmap-xhdpi\\ic_back.png"
+    }
+]

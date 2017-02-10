@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="firstpage_image">70dp</dimen>
+    <dimen name="firstpage_topimage">130dp</dimen>
+</resources>

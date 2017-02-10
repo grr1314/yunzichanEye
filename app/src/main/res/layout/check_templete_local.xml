@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginRight="15dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical" 
+            android:background="@mipmap/titlebg">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:background="@drawable/backgroundleftright">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+	    		android:layout_marginLeft="10dp"
+	    		android:layout_marginRight="10dp"
+	    		android:layout_marginBottom="10dp"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/backgroundcom" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/relativeLayout1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:orientation="vertical" >
+
+                        <ListView
+                            android:id="@+id/check_templete_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@mipmap/lin"
+                            android:scrollingCache="false" >
+                        </ListView>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/backgroundtop" >
+
+                        <Button
+                            android:id="@+id/check_templete_gaojiquery"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/button_luru_com"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:text="高级查询" />
+
+                        <Button
+                            android:id="@+id/check_templete_shuaxin"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_toLeftOf="@+id/check_templete_gaojiquery"
+                            android:background="@drawable/btn_refresh_sty"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:text="刷新" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <include layout="@layout/com_bottom" />
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.yzl.imgupload.MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_but_solid_blue"
+            android:text="选择照片"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/pro_v"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/pro_tv"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正在上传..." />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>
